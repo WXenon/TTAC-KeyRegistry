@@ -13,9 +13,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    ListView keyList;
+    String action;
+    private CardArrayAdapter cardArrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,15 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        keyList = findViewById(R.id.keycard_listView);
+        cardArrayAdapter = new CardArrayAdapter(getApplicationContext(), R.layout.keycard);
+
+        for (int i = 0; i < 7; i++) {
+            Card card = new Card(String.valueOf(i+1), String.valueOf(i+3));
+            cardArrayAdapter.add(card);
+        }
+        keyList.setAdapter(cardArrayAdapter);
     }
 
     @Override
