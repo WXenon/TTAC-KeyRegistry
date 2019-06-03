@@ -48,9 +48,31 @@ public class MainActivity extends AppCompatActivity
         keyList = findViewById(R.id.keycard_listView);
         cardArrayAdapter = new CardArrayAdapter(getApplicationContext(), R.layout.keycard);
 
-        for (int i = 0; i < 7; i++) {
-            Card card = new Card(String.valueOf(i+1), String.valueOf(i+3));
-            cardArrayAdapter.add(card);
+        for (int i = 0; i < 6; i++) {
+            if (i == 0){
+                Card card = new Card(String.format("%02d", i+1), String.valueOf(i+3));
+                cardArrayAdapter.add(card);
+            }
+            else if (i == 1){
+                Card card = new Card(String.format("%02d", i+1), String.valueOf(i+3));
+                cardArrayAdapter.add(card);
+            }
+            else if (i == 2){
+                Card card = new Card(String.format("%02d", i+1), String.valueOf(i));
+                cardArrayAdapter.add(card);
+            }
+            else if (i == 3){
+                Card card = new Card(String.format("%02d", i+1), String.valueOf(i+2));
+                cardArrayAdapter.add(card);
+            }
+            else if (i == 4){
+                Card card = new Card(String.format("%02d", i+1), String.valueOf(i-3));
+                cardArrayAdapter.add(card);
+            }
+            else if (i == 5){
+                Card card = new Card(String.format("%02d", i+1), String.valueOf(i-4));
+                cardArrayAdapter.add(card);
+            }
         }
         keyList.setAdapter(cardArrayAdapter);
     }
