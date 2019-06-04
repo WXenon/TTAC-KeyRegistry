@@ -35,11 +35,6 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
     </LinearLayout>
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:contentPadding="16dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -47,7 +42,8 @@
             android:layout_margin="10dp"
             android:paddingVertical="24dp"
             android:paddingHorizontal="12dp"
-            android:weightSum="10">
+            android:weightSum="10"
+            android:background="@drawable/card">
 
             <!-- Email Label -->
             <TextView
@@ -82,27 +78,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Keep me signed in"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="5dp"
                 android:textSize="16sp"/>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/loginBtn"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Login"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="#5EFF00"
-                style="@style/Widget.MaterialComponents.Button"/>
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:background="@drawable/login_btn"
+                android:padding="5dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:text="Login"
+                    android:textSize="25sp"/>
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/signUpBtn"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:text="No account yet? Create one"
                 android:textSize="16sp" />
 
         </LinearLayout>
-    </android.support.v7.widget.CardView>
 </LinearLayout>
