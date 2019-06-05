@@ -64,7 +64,10 @@ public class Login extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                logIn(userIdField.getText().toString().trim().toLowerCase(), passwordField.getText().toString().trim().toLowerCase());
+//                logIn(userIdField.getText().toString().trim().toLowerCase(), passwordField.getText().toString().trim().toLowerCase());
+                Intent toMainActivity = new Intent(Login.this, MainActivity.class);
+                toMainActivity.putExtra("action", "home");
+                startActivity(toMainActivity);
             }
         });
 

@@ -21,22 +21,28 @@ import android.widget.RelativeLayout;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    ListView keyList = findViewById(R.id.keycard_listView);
+    ListView keyList;
     String action;
     private CardArrayAdapter cardArrayAdapter;
-    RelativeLayout mainLayout = findViewById(R.id.mainScreen);
-    Toolbar toolbar = findViewById(R.id.toolbar);
-    FloatingActionButton fab = findViewById(R.id.fab);
+    RelativeLayout mainLayout;
+    Toolbar toolbar;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         action = getIntent().getStringExtra("action");
+
+        fab = findViewById(R.id.fab);
+        toolbar = findViewById(R.id.toolbar);
+        mainLayout = findViewById(R.id.mainScreen);
+        keyList = findViewById(R.id.keycard_listView);
         if (action.equals("home")){
             mainLayout.setVisibility(View.VISIBLE);
             toolbar.setTitle("Key Movement");
             setSupportActionBar(toolbar);
+//            fab.setVisibility(View.GONE);
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -51,7 +57,6 @@ public class MainActivity extends AppCompatActivity
             drawer.addDrawerListener(toggle);
             toggle.syncState();
             navigationView.setNavigationItemSelectedListener(this);
-
             cardArrayAdapter = new CardArrayAdapter(getApplicationContext(), R.layout.keycard);
 
             for (int i = 0; i < 6; i++) {
