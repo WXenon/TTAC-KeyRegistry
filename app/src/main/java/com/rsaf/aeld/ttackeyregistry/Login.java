@@ -27,7 +27,7 @@ public class Login extends AppCompatActivity {
 
     EditText userIdField, passwordField;
     RelativeLayout loginBtn;
-    TextView signUpBtn;
+    TextView signUpBtn, emailSuffix;
     String confirmedUserID;
     CheckBox signInPersist;
     ProgressDialog progressDialog;
@@ -49,6 +49,9 @@ public class Login extends AppCompatActivity {
         loginBtn = findViewById(R.id.loginBtn);
         signUpBtn = findViewById(R.id.signUpBtn);
         signInPersist = findViewById(R.id.signInCheck);
+        emailSuffix = findViewById(R.id.emailSuffix);
+
+        emailSuffix.setText("@defence.gov.sg");
 
         //Load existing username and password on SharedPreferences
         SharedPreferences prefs = getSharedPreferences("session", Context.MODE_PRIVATE);
@@ -75,8 +78,8 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //signUp(userIdField.getText().toString().trim().toLowerCase(), passwordField.getText().toString().trim().toLowerCase());
-//                Intent signUpActivity = new Intent(Login.this, Signup.class);
-//                startActivityForResult(signUpActivity, REQUEST_SIGNUP);
+                Intent signUpActivity = new Intent(Login.this, SignUp.class);
+                startActivity(signUpActivity);
             }
         });
 

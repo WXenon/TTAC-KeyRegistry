@@ -1,40 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-    <LinearLayout
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/nav_header_height"
-        android:background="@drawable/side_nav_bar"
-        android:gravity="bottom"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark"
-        android:layout_marginBottom="40dp">
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <ImageView
-            android:id="@+id/nav_login_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="Insert Random Image"
-            android:paddingTop="@dimen/nav_header_vertical_spacing"
-            app:srcCompat="@mipmap/ic_launcher_round" />
-
-        <TextView
-            android:id="@+id/nav_header_username"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/nav_header_vertical_spacing"
-            android:text="Welcome to TTAC Keys"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-    </LinearLayout>
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,7 +31,19 @@
             android:paddingHorizontal="12dp"
             android:weightSum="10"
             android:background="@drawable/card">
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rank and Name"
+                android:textSize="25sp"
+                android:textColor="#000000"/>
+            <EditText
+                android:id="@+id/sign_up_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="5.5"
+                android:textSize="20sp"
+                android:inputType="text" />
             <!-- Email Label -->
             <TextView
                 android:layout_width="match_parent"
@@ -58,14 +57,14 @@
                 android:orientation="horizontal"
                 android:weightSum="10">
                 <EditText
-                    android:id="@+id/login_userId_field"
+                    android:id="@+id/signup_userId_field"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5.5"
                     android:textSize="20sp"
                     android:inputType="text" />
                 <TextView
-                    android:id="@+id/emailSuffix"
+                    android:id="@+id/signUp_emailSuffix"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5.5"
@@ -83,23 +82,29 @@
                 android:textSize="25sp"
                 android:textColor="#000000"/>
 
-                <EditText
-                    android:id="@+id/login_user_pw"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:textSize="20sp"/>
-
-            <CheckBox
-                android:id="@+id/signInCheck"
+            <EditText
+                android:id="@+id/signup_user_pw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Keep me signed in"
-                android:layout_marginTop="5dp"
-                android:textSize="16sp"/>
+                android:inputType="textPassword"
+                android:textSize="20sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="Confirm Password"
+                android:textSize="25sp"
+                android:textColor="#000000"/>
 
+            <EditText
+                android:id="@+id/signup_user_pw_cfm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:textSize="20sp"/>
             <RelativeLayout
-                android:id="@+id/loginBtn"
+                android:id="@+id/signUpBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -110,18 +115,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#000000"
-                    android:text="Login"
+                    android:text="Sign Up"
                     android:textSize="25sp"/>
             </RelativeLayout>
-
-            <TextView
-                android:id="@+id/signUpBtn"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:text="No account yet? Create one"
-                android:textSize="16sp" />
-
         </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>
