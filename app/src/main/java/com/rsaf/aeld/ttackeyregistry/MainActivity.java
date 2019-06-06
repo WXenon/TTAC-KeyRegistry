@@ -3,7 +3,6 @@ package com.rsaf.aeld.ttackeyregistry;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -38,94 +37,33 @@ public class MainActivity extends AppCompatActivity
         toolbar = findViewById(R.id.toolbar);
         mainLayout = findViewById(R.id.mainScreen);
         keyList = findViewById(R.id.keycard_listView);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+
         if (action.equals("home")){
             mainLayout.setVisibility(View.VISIBLE);
             toolbar.setTitle("Key Movement");
             setSupportActionBar(toolbar);
 //            fab.setVisibility(View.GONE);
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
-            });
-            DrawerLayout drawer = findViewById(R.id.drawer_layout);
-            NavigationView navigationView = findViewById(R.id.nav_view);
+//            fab.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                            .setAction("Action", null).show();
+//                }
+//            });
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                     this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
             drawer.addDrawerListener(toggle);
             toggle.syncState();
             navigationView.setNavigationItemSelectedListener(this);
-            cardArrayAdapter = new CardArrayAdapter(getApplicationContext(), R.layout.keycard);
 
-            for (int i = 0; i < 6; i++) {
-                if (i == 0){
-                    Card card = new Card(String.format("%02d", i+1), String.valueOf(i+3));
-                    cardArrayAdapter.add(card);
-                }
-                else if (i == 1){
-                    Card card = new Card(String.format("%02d", i+1), String.valueOf(i+3));
-                    cardArrayAdapter.add(card);
-                }
-                else if (i == 2){
-                    Card card = new Card(String.format("%02d", i+1), String.valueOf(i));
-                    cardArrayAdapter.add(card);
-                }
-                else if (i == 3){
-                    Card card = new Card(String.format("%02d", i+1), String.valueOf(i+2));
-                    cardArrayAdapter.add(card);
-                }
-                else if (i == 4){
-                    Card card = new Card(String.format("%02d", i+1), String.valueOf(i-3));
-                    cardArrayAdapter.add(card);
-                }
-                else if (i == 5){
-                    Card card = new Card(String.format("%02d", i+1), String.valueOf(i-4));
-                    cardArrayAdapter.add(card);
-                }
-            }
-            keyList.setAdapter(cardArrayAdapter);
+            insertList();
 
             keyList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    if (position == 0){
-                        Intent toKeyNo = new Intent(MainActivity.this, MainActivity.class);
-                        toKeyNo.putExtra("action", "viewKey");
-                        toKeyNo.putExtra("keyNo", String.valueOf(position + 1));
-                        startActivity(toKeyNo);
-                    }
-                    else if (position == 1){
-                        Intent toKeyNo = new Intent(MainActivity.this, MainActivity.class);
-                        toKeyNo.putExtra("action", "viewKey");
-                        toKeyNo.putExtra("keyNo", String.valueOf(position + 1));
-                        startActivity(toKeyNo);
-                    }
-                    else if (position == 2){
-                        Intent toKeyNo = new Intent(MainActivity.this, MainActivity.class);
-                        toKeyNo.putExtra("action", "viewKey");
-                        toKeyNo.putExtra("keyNo", String.valueOf(position + 1));
-                        startActivity(toKeyNo);
-                    }
-                    else if (position == 3){
-                        Intent toKeyNo = new Intent(MainActivity.this, MainActivity.class);
-                        toKeyNo.putExtra("action", "viewKey");
-                        toKeyNo.putExtra("keyNo", String.valueOf(position + 1));
-                        startActivity(toKeyNo);
-                    }
-                    else if (position == 4){
-                        Intent toKeyNo = new Intent(MainActivity.this, MainActivity.class);
-                        toKeyNo.putExtra("action", "viewKey");
-                        toKeyNo.putExtra("keyNo", String.valueOf(position + 1));
-                        startActivity(toKeyNo);
-                    }
-                    else if (position == 5){
-                        Intent toKeyNo = new Intent(MainActivity.this, MainActivity.class);
-                        toKeyNo.putExtra("action", "viewKey");
-                        toKeyNo.putExtra("keyNo", String.valueOf(position + 1));
-                        startActivity(toKeyNo);
-                    }
+                    selectKey(position);
                 }
             });
         }
@@ -189,8 +127,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         if (id == R.id.nav_main) {
-            activity = new Intent (MainActivity.this, MainActivity.class);
-            activity.putExtra("action", "home");
+            toolbar.setTitle("Key Movement");
         } else if (id == R.id.nav_available_keys) {
             activity = new Intent(MainActivity.this, MainActivity.class);
             activity.putExtra("action", "viewAvailable");
@@ -200,7 +137,76 @@ public class MainActivity extends AppCompatActivity
         item.setChecked(true);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        startActivity(activity);
         return true;
+    }
+
+    private void insertList(){
+        cardArrayAdapter = new CardArrayAdapter(getApplicationContext(), R.layout.keycard);
+        for (int i = 0; i < 6; i++) {
+            if (i == 0){
+                Card card = new Card(String.format("%02d", i+1), String.valueOf(i+3));
+                cardArrayAdapter.add(card);
+            }
+            else if (i == 1){
+                Card card = new Card(String.format("%02d", i+1), String.valueOf(i+3));
+                cardArrayAdapter.add(card);
+            }
+            else if (i == 2){
+                Card card = new Card(String.format("%02d", i+1), String.valueOf(i));
+                cardArrayAdapter.add(card);
+            }
+            else if (i == 3){
+                Card card = new Card(String.format("%02d", i+1), String.valueOf(i+2));
+                cardArrayAdapter.add(card);
+            }
+            else if (i == 4){
+                Card card = new Card(String.format("%02d", i+1), String.valueOf(i-3));
+                cardArrayAdapter.add(card);
+            }
+            else if (i == 5){
+                Card card = new Card(String.format("%02d", i+1), String.valueOf(i-4));
+                cardArrayAdapter.add(card);
+            }
+        }
+        keyList.setAdapter(cardArrayAdapter);
+    }
+
+    private void selectKey(int position){
+        if (position == 0){
+            Intent toKeyNo = new Intent(MainActivity.this, MainActivity.class);
+            toKeyNo.putExtra("action", "viewKey");
+            toKeyNo.putExtra("keyNo", String.valueOf(position + 1));
+            startActivity(toKeyNo);
+        }
+        else if (position == 1){
+            Intent toKeyNo = new Intent(MainActivity.this, MainActivity.class);
+            toKeyNo.putExtra("action", "viewKey");
+            toKeyNo.putExtra("keyNo", String.valueOf(position + 1));
+            startActivity(toKeyNo);
+        }
+        else if (position == 2){
+            Intent toKeyNo = new Intent(MainActivity.this, MainActivity.class);
+            toKeyNo.putExtra("action", "viewKey");
+            toKeyNo.putExtra("keyNo", String.valueOf(position + 1));
+            startActivity(toKeyNo);
+        }
+        else if (position == 3){
+            Intent toKeyNo = new Intent(MainActivity.this, MainActivity.class);
+            toKeyNo.putExtra("action", "viewKey");
+            toKeyNo.putExtra("keyNo", String.valueOf(position + 1));
+            startActivity(toKeyNo);
+        }
+        else if (position == 4){
+            Intent toKeyNo = new Intent(MainActivity.this, MainActivity.class);
+            toKeyNo.putExtra("action", "viewKey");
+            toKeyNo.putExtra("keyNo", String.valueOf(position + 1));
+            startActivity(toKeyNo);
+        }
+        else if (position == 5){
+            Intent toKeyNo = new Intent(MainActivity.this, MainActivity.class);
+            toKeyNo.putExtra("action", "viewKey");
+            toKeyNo.putExtra("keyNo", String.valueOf(position + 1));
+            startActivity(toKeyNo);
+        }
     }
 }
