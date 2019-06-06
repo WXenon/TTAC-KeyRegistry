@@ -10,7 +10,7 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/signUptoolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -103,6 +103,20 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:textSize="20sp"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="5dp">
+                <TextView
+                    android:id="@+id/signUperrorMsg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:textColor="#FF0000"
+                    android:text="Passwords do not match"
+                    android:visibility="invisible"/>
+            </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/signUpBtn"
                 android:layout_width="match_parent"

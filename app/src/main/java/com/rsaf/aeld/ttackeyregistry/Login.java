@@ -27,7 +27,7 @@ public class Login extends AppCompatActivity {
 
     EditText userIdField, passwordField;
     RelativeLayout loginBtn;
-    TextView signUpBtn, emailSuffix;
+    TextView signUpBtn, emailSuffix, loginError;
     String confirmedUserID;
     CheckBox signInPersist;
     ProgressDialog progressDialog;
@@ -50,6 +50,7 @@ public class Login extends AppCompatActivity {
         signUpBtn = findViewById(R.id.signUpBtn);
         signInPersist = findViewById(R.id.signInCheck);
         emailSuffix = findViewById(R.id.emailSuffix);
+        loginError = findViewById(R.id.loginerrorMsg);
 
         emailSuffix.setText("@defence.gov.sg");
 
@@ -67,10 +68,7 @@ public class Login extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                logIn(userIdField.getText().toString().trim().toLowerCase(), passwordField.getText().toString().trim().toLowerCase());
-                Intent toMainActivity = new Intent(Login.this, MainActivity.class);
-                toMainActivity.putExtra("action", "home");
-                startActivity(toMainActivity);
+                logIn(userIdField.getText().toString().trim().toLowerCase() + emailSuffix.getText().toString(), passwordField.getText().toString().trim());
             }
         });
 
@@ -88,7 +86,7 @@ public class Login extends AppCompatActivity {
     public void logIn(String emailInput, final String passwordInput){
         progressDialog.setCancelable(false);
         progressDialog.show();
-        if (emailInput.contains("@defence.gov.sg")) {
+
             confirmedUserID = emailInput;
             firebaseAuth.signInWithEmailAndPassword(confirmedUserID, passwordInput)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -110,20 +108,14 @@ public class Login extends AppCompatActivity {
 
                                 Intent toMainActivity = new Intent(Login.this, MainActivity.class);
                                 toMainActivity.putExtra("UserID", confirmedUserID);
+                                toMainActivity.putExtra("action", "home");
                                 startActivity(toMainActivity);
                             } else {
-                                Toast.makeText(Login.this, "Log in failed, please check that your email and password are correct.", Toast.LENGTH_LONG).show();
+                                loginError.setVisibility(View.VISIBLE);
                             }
                             progressDialog.dismiss();
                         }
                     });
-        }
-        else{
-            progressDialog.dismiss();
-            userIdField.getText().clear();
-            passwordField.getText().clear();
-            Toast.makeText(this, "Please log in with a valid Defence Mail.", Toast.LENGTH_LONG).show();
-        }
     }
 
     @Override

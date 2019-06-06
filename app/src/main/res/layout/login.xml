@@ -89,7 +89,20 @@
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
                     android:textSize="20sp"/>
-
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="5dp">
+                <TextView
+                    android:id="@+id/loginerrorMsg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:textColor="#FF0000"
+                    android:text="Incorrect email or password, please check again"
+                    android:visibility="invisible"/>
+            </RelativeLayout>
             <CheckBox
                 android:id="@+id/signInCheck"
                 android:layout_width="match_parent"

@@ -1,9 +1,13 @@
 package com.rsaf.aeld.ttackeyregistry;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -16,6 +20,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -27,19 +32,35 @@ public class SignUp extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     EditText userIdField, userFullNameField, passwordField, passwordField2,rank,branch,appointment;
     RelativeLayout signUpBtn;
-    TextView signUpEmailSuffix;
+    TextView signUpEmailSuffix, signUpError;
     String confirmedUserID;
     Toolbar toolbar;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ProgressDialog progressDialog;
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.exit) {
+            finish();
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up_dialog);
         FirebaseApp.initializeApp(this);
-        toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.signUptoolbar);
         toolbar.setTitle("Sign Up");
+        setSupportActionBar(toolbar);
         progressDialog = new ProgressDialog(SignUp.this);
         progressDialog.setMessage("Loading");
         firebaseAuth = FirebaseAuth.getInstance();
@@ -50,6 +71,7 @@ public class SignUp extends AppCompatActivity {
         passwordField = findViewById(R.id.signup_user_pw);
         passwordField2 = findViewById(R.id.signup_user_pw_cfm);
         signUpBtn = findViewById(R.id.signUpBtn);
+        signUpError = findViewById(R.id.signUperrorMsg);
 
         signUpEmailSuffix.setText("@defence.gov.sg");
 
@@ -60,9 +82,9 @@ public class SignUp extends AppCompatActivity {
                     Toast.makeText(SignUp.this, "Password needs to be at least 6 characters", Toast.LENGTH_SHORT).show();
                 } else {
                     if (passwordField.getText().toString().equals(passwordField2.getText().toString())) {
-                        signUp(userIdField.getText().toString().trim().toLowerCase() + signUpEmailSuffix.getText().toString(), userFullNameField.getText().toString(), passwordField.getText().toString().trim().toLowerCase());
+                        signUp(userIdField.getText().toString().trim().toLowerCase() + signUpEmailSuffix.getText().toString(), userFullNameField.getText().toString(), passwordField.getText().toString().trim());
                     } else {
-                        Toast.makeText(SignUp.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                       signUpError.setVisibility(View.VISIBLE);
                         passwordField2.getText().clear();
                         passwordField.getText().clear();
                     }

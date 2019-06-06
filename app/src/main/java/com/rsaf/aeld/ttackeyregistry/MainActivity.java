@@ -177,53 +177,30 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        Intent activity = null;
         if (item.isChecked()){
             DrawerLayout drawer = findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
         }
 
         if (id == R.id.nav_main) {
-            Intent toHome = new Intent (MainActivity.this, MainActivity.class);
-            toHome.putExtra("action", "home");
-            startActivity(toHome);
+            activity = new Intent (MainActivity.this, MainActivity.class);
+            activity.putExtra("action", "home");
         } else if (id == R.id.nav_available_keys) {
-            Intent toViewAvailable = new Intent(MainActivity.this, MainActivity.class);
-            toViewAvailable.putExtra("action", "viewAvailable");
-            startActivity(toViewAvailable);
+            activity = new Intent(MainActivity.this, MainActivity.class);
+            activity.putExtra("action", "viewAvailable");
         } else if (id == R.id.nav_sign_out) {
 
         }
-
+        item.setChecked(true);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+        startActivity(activity);
         return true;
     }
 }
